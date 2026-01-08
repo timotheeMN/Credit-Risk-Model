@@ -1,27 +1,75 @@
-# Credit Risk Model — Exploratory Data Analysis (EDA)
+# Credit Risk Modeling & Prediction App (Python, ML, Streamlit)
 
-This repository showcases an end-to-end credit risk modeling project.  
-**Current milestone (Push #1):** Exploratory Data Analysis (EDA) completed.
+This repository presents an **end-to-end credit risk modeling project**, from exploratory data analysis to machine learning modeling and deployment via a **Streamlit web application**.
 
-## Dataset
-German Credit Risk — With Target (Kaggle)  
-Download: see `data/data.txt` (link to the dataset)
+The goal is to predict whether a loan applicant is likely to **default (high risk)** or **repay (low risk)** based on demographic, financial, and loan-related features.
 
-> Note: the dataset CSV is not included in the repo. Please download it from Kaggle and place it in `data/`.
 
-## Project structure
-- `notebooks/analysis_model.ipynb` — EDA notebook (data exploration, distributions, outliers, categorical analysis, correlations)
-- `data/` — dataset location (not tracked)
-- `src/` — future code for preprocessing + modeling
+##  Project Overview
 
-## Streamlit App (Demo)
-Run locally:
+**Key objectives**
+- Explore and understand credit risk data (EDA)
+- Build and evaluate machine learning models
+- Select and tune a robust classifier (XGBoost)
+- Deploy the final model in an interactive Streamlit application
+
+**Target variable**
+- `Risk` → Good vs Bad credit
+
+
+##  Dataset
+
+- **German Credit Risk — With Target**
+- Source: Kaggle  
+- Link: see `data/data.txt`
+
+⚠️ The dataset CSV is **not included** in the repository.  
+Please download it from Kaggle and place it in the `data/` folder.
+
+
+##  Methodology
+
+### 1. Exploratory Data Analysis (EDA)
+Performed in `notebooks/analysis_model.ipynb`:
+- Numerical distributions & outlier detection
+- Categorical feature analysis
+- Correlation analysis
+- Group-based statistics
+- Multivariate visualizations
+
+### 2. Feature Engineering & Preprocessing
+- Selection of business-relevant features
+- Encoding of categorical variables
+- Train / test split with stratification
+- Prevention of data leakage
+
+### 3. Modeling
+- Baseline and tree-based models
+- Hyperparameter tuning using `GridSearchCV`
+- Final model: **XGBoost Classifier**
+- Evaluation on unseen test data
+
+### 4. Deployment
+- Trained model and encoders saved with `joblib`
+- Interactive **Streamlit app** for real-time prediction
+
+---
+
+##  Streamlit Application (Demo)
+
+The application allows users to input applicant information and instantly receive a **credit risk prediction**.
+
+### Run locally
 
 ```bash
-# create venv (optional)
+# (Optional) Create virtual environment
 python -m venv .venv
-# activate (Windows PowerShell)
+
+# Activate (Windows PowerShell)
 .\.venv\Scripts\Activate.ps1
 
+# Install dependencies
 pip install -r requirements.txt
+
+# Launch the app
 streamlit run notebooks/app.py
