@@ -13,3 +13,15 @@ Download: see `data/data.txt` (link to the dataset)
 - `notebooks/analysis_model.ipynb` — EDA notebook (data exploration, distributions, outliers, categorical analysis, correlations)
 - `data/` — dataset location (not tracked)
 - `src/` — future code for preprocessing + modeling
+
+## Streamlit App (Demo)
+Run locally:
+
+```bash
+# create venv (optional)
+python -m venv .venv
+# activate (Windows PowerShell)
+.\.venv\Scripts\Activate.ps1
+
+pip install -r requirements.txt
+streamlit run notebooks/app.py
