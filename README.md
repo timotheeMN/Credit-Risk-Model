@@ -2,16 +2,17 @@
 
 This repository presents an **end-to-end credit risk modeling project**, from exploratory data analysis to machine learning modeling and deployment via a **Streamlit web application**.
 
-The goal is to predict whether a loan applicant is likely to **default (high risk)** or **repay (low risk)** based on demographic, financial, and loan-related features.
+Goal: predict whether a loan applicant is likely to **default (Bad / High Risk)** or **repay (Good / Low Risk)** and provide a **probability of default (PD)** with basic model explanations.
 
 
 ##  Project Overview
 
 **Key objectives**
-- Explore and understand credit risk data (EDA)
-- Build and evaluate machine learning models
-- Select and tune a robust classifier (XGBoost)
-- Deploy the final model in an interactive Streamlit application
+- Perform Exploratory Data Analysis (EDA)
+- Build and tune ML models for credit risk classification
+- Use a production-style preprocessing pipeline (**OneHotEncoder + ColumnTransformer**)
+- Evaluate with credit-risk relevant metrics (ROC-AUC, Recall on Bad loans)
+- Deploy an interactive Streamlit demo (PD + threshold policy + drivers)
 
 **Target variable**
 - `Risk` → Good vs Bad credit
@@ -29,29 +30,32 @@ Please download it from Kaggle and place it in the `data/` folder.
 
 ##  Methodology
 
-### 1. Exploratory Data Analysis (EDA)
-Performed in `notebooks/analysis_model.ipynb`:
-- Numerical distributions & outlier detection
-- Categorical feature analysis
-- Correlation analysis
-- Group-based statistics
-- Multivariate visualizations
+### 1) EDA
+Notebook: `notebooks/analysis_model.ipynb`  
+Includes distributions, outliers, categorical analysis, correlations and multivariate plots.
 
-### 2. Feature Engineering & Preprocessing
-- Selection of business-relevant features
-- Encoding of categorical variables
-- Train / test split with stratification
-- Prevention of data leakage
+### 2) Preprocessing (Production-ready)
+Notebook: `notebooks/analysis_model_upgrade.ipynb`  
+- Train/test split with stratification
+- **ColumnTransformer**
+  - numeric: median imputation
+  - categorical: most-frequent imputation + **OneHotEncoder(handle_unknown="ignore")**
+- Avoids artificial ordering from LabelEncoder on features
 
-### 3. Modeling
-- Baseline and tree-based models
-- Hyperparameter tuning using `GridSearchCV`
-- Final model: **XGBoost Classifier**
-- Evaluation on unseen test data
+### 3) Modeling & Evaluation
+- Tree-based models + hyperparameter tuning (GridSearchCV)
+- Credit-risk evaluation:
+  - Confusion matrix
+  - **Recall on Bad loans**
+  - Precision / F1
+  - **ROC-AUC**
+  - Threshold tuning using `predict_proba` (policy-based decision)
 
-### 4. Deployment
-- Trained model and encoders saved with `joblib`
-- Interactive **Streamlit app** for real-time prediction
+### 4) Deployment (Streamlit)
+Streamlit app provides:
+- PD (Probability of Default)
+- Adjustable threshold for decision policy
+- Basic explanation via global feature importance
 
 ---
 
@@ -72,4 +76,4 @@ python -m venv .venv
 pip install -r requirements.txt
 
 # Launch the app
-streamlit run notebooks/app.py
+streamlit run notebooks/app_upgrade.py
