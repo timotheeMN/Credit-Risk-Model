@@ -68,8 +68,8 @@ with st.sidebar:
     job = st.slider("Job (0-3)", min_value=0, max_value=3, value=1)
 
     housing = st.selectbox("Housing", ["own", "rent", "free"])
-    saving_accounts = st.selectbox("Saving accounts", ["little", "moderate", "quite rich", "rich"])
-    checking_account = st.selectbox("Checking account", ["little", "moderate", "rich"])
+    saving_accounts = st.selectbox("Saving accounts", ["little", "moderate", "quite rich", "rich", "unknown"])
+    checking_account = st.selectbox("Checking account", ["little", "moderate", "rich", "unknown"])
 
     credit_amount = st.number_input("Credit Amount", min_value=0.0, value=1000.0, step=100.0)
     duration = st.slider("Duration (months)", min_value=1, max_value=72, value=12)
@@ -118,7 +118,7 @@ if st.button("Predict"):
         st.write("Note: final decision is based on the threshold policy above.")
          # Drivers (feature importance)
     if show_drivers:
-        st.subheader("Main Risk Drivers (Global feature importance)")
+        st.subheader("Main Risk Drivers (Model-level importance)")
         df_imp = get_top_drivers(input_df, top_n=8)
         if df_imp is None:
             st.info("This model does not expose feature_importances_.")
